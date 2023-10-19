@@ -76,6 +76,7 @@ namespace CodeVoyage.Controllers
             {
                 response.Add(new BlogPostDto
                 {
+                    Id = blogPost.Id,
                     Title = blogPost.Title,
                     Description = blogPost.Description,
                     Content = blogPost.Content,
@@ -90,6 +91,37 @@ namespace CodeVoyage.Controllers
                     }).ToList()
                 });
             }
+
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("{id:Guid}")]
+        public async Task<IActionResult> GetBlogPostById([FromRoute] Guid id)
+        {
+            var blogPost = await _blogPostRepository.GetIdAsync(id);
+
+            if (blogPost == null)
+            {
+                return NotFound();
+            }
+
+            var response = new BlogPostDto
+            {
+                Id = blogPost.Id,
+                Title = blogPost.Title,
+                Description = blogPost.Description,
+                Content = blogPost.Content,
+                ImageUrl = blogPost.ImageUrl,
+                Author = blogPost.Author,
+                PublishedDate = blogPost.PublishedDate,
+                IsPublic = blogPost.IsPublic,
+                Categories = blogPost.Categories.Select(x => new CategoryDto
+                {
+                    Id = x.Id,
+                    Name = x.Name
+                }).ToList()
+            };
 
             return Ok(response);
         }

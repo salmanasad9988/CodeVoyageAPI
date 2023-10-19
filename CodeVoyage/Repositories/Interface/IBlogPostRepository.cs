@@ -6,6 +6,8 @@ namespace CodeVoyage.Repositories.Interface
     {
         Task<BlogPost> CreateAsync(BlogPost blogPost);
 
-        Task<IEnumerable<BlogPost>> GetAllAsync(); 
+        Task<IEnumerable<BlogPost>> GetAllAsync();
+
+        Task<BlogPost?> GetIdAsync(Guid id);
     }
 }

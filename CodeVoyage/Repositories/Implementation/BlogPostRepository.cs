@@ -24,5 +24,10 @@ namespace CodeVoyage.Repositories.Implementation
         {
             return await _context.BlogPosts.Include(x => x.Categories).ToListAsync();
         }
+
+        public async Task<BlogPost?> GetIdAsync(Guid id)
+        {
+            return await _context.BlogPosts.Include(x => x.Categories).Where(x => x.Id == id).FirstOrDefaultAsync();
+        }
     }
 }
