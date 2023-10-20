@@ -11,5 +11,7 @@ namespace CodeVoyage.Repositories.Interface
         Task<BlogPost?> GetIdAsync(Guid id);
 
         Task<BlogPost?> UpdateAsync(BlogPost blogPost);
+
+        Task<BlogPost?> DeleteAsync(Guid id);
     }
 }

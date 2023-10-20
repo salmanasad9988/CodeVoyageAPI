@@ -50,5 +50,20 @@ namespace CodeVoyage.Repositories.Implementation
 
             return null;
         }
+
+        public async Task<BlogPost?> DeleteAsync(Guid id)
+        {
+            var existingBlogPost = await _context.BlogPosts.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (existingBlogPost != null)
+            {
+                _context.BlogPosts.Remove(existingBlogPost);
+                await _context.SaveChangesAsync();
+
+                return existingBlogPost;
+            }
+            return null;
+        }
+
     }
 }

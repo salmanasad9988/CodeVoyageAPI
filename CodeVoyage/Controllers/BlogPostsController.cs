@@ -176,5 +176,28 @@ namespace CodeVoyage.Controllers
 
             return Ok(response);
         }
+
+        [HttpDelete]
+        [Route("{id:Guid}")]
+        public async Task<IActionResult> DeleteBlogPost([FromRoute] Guid id)
+        {
+            var deletedBlogPost = await _blogPostRepository.DeleteAsync(id);
+
+            if (deletedBlogPost == null) return NotFound();
+
+            var response = new BlogPostDto
+            {
+                Id = deletedBlogPost.Id,
+                Title = deletedBlogPost.Title,
+                Description = deletedBlogPost.Description,
+                Content = deletedBlogPost.Content,
+                ImageUrl = deletedBlogPost.ImageUrl,
+                Author = deletedBlogPost.Author,
+                PublishedDate = deletedBlogPost.PublishedDate,
+                IsPublic = deletedBlogPost.IsPublic
+            };
+
+            return Ok(response);
+        }
     }
 }
