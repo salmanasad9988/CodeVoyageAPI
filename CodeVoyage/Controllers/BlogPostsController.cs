@@ -125,5 +125,56 @@ namespace CodeVoyage.Controllers
 
             return Ok(response);
         }
+
+        [HttpPut]
+        [Route("{id:Guid}")]
+        public async Task<IActionResult> UpdateBlogPostById([FromRoute] Guid id, [FromBody] UpdateBlogPostDto request)
+        {
+            var blogPost = new BlogPost
+            {
+                Id = id,
+                Title = request.Title,
+                Description = request.Description,
+                Content = request.Content,
+                ImageUrl = request.ImageUrl,
+                Author = request.Author,
+                PublishedDate = request.PublishedDate,
+                IsPublic = request.IsPublic,
+                Categories = new List<Category>()
+            };
+
+            foreach (var categoryId in request.CategoryIds)
+            {
+                var category = await _categoryRepository.GetByIdAsync(categoryId);
+                if (category != null)
+                    blogPost.Categories.Add(category);
+            }
+
+            var updatedBlogPost = await _blogPostRepository.UpdateAsync(blogPost);
+
+            if (updatedBlogPost == null)
+            {
+                return NotFound();
+            }
+
+            var response = new BlogPostDto
+            {
+                Id = blogPost.Id,
+                Title = blogPost.Title,
+                Description = blogPost.Description,
+                Content = blogPost.Content,
+                ImageUrl = blogPost.ImageUrl,
+                Author = blogPost.Author,
+                PublishedDate = blogPost.PublishedDate,
+                IsPublic = blogPost.IsPublic,
+                Categories = blogPost.Categories.Select(x => new CategoryDto
+                {
+                    Id = x.Id,
+                    Name = x.Name
+                }).ToList()
+            };
+
+            return Ok(response);
+        }
     }
 }

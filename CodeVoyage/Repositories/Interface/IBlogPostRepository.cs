@@ -9,5 +9,7 @@ namespace CodeVoyage.Repositories.Interface
         Task<IEnumerable<BlogPost>> GetAllAsync();
 
         Task<BlogPost?> GetIdAsync(Guid id);
+
+        Task<BlogPost?> UpdateAsync(BlogPost blogPost);
     }
 }
