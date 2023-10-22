@@ -1,6 +1,7 @@
 ﻿using CodeVoyage.Data;
 using CodeVoyage.Models.Domain;
 using CodeVoyage.Repositories.Interface;
+using Microsoft.EntityFrameworkCore;
 
 namespace CodeVoyage.Repositories.Implementation
 {
@@ -20,7 +21,12 @@ namespace CodeVoyage.Repositories.Implementation
             _context = context;
         }
 
-        public async Task<BlogImage> Upload(IFormFile file, BlogImage blogImage)
+        public async Task<IEnumerable<BlogImage>> GetAllAsync()
+        {
+            return await _context.BlogImages.ToListAsync();
+        }
+
+        public async Task<BlogImage> UploadAsync(IFormFile file, BlogImage blogImage)
         {
             var path = Path.Combine(_webHostEnvironment.ContentRootPath, "Uploads\\Images", $"{blogImage.FileName}");
 

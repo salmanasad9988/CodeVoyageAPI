@@ -7,6 +7,7 @@ namespace CodeVoyage.Repositories.Interface
 {
     public interface IImageRepository
     {
-        Task<BlogImage> Upload(IFormFile file, BlogImage blogImage);
+        Task<IEnumerable<BlogImage>> GetAllAsync();
+        Task<BlogImage> UploadAsync(IFormFile file, BlogImage blogImage);
     }
 }

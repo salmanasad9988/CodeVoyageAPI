@@ -17,6 +17,28 @@ namespace CodeVoyage.Controllers
             _imageRepository = imageRepository;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllImages()
+        {
+            var blogImages = await _imageRepository.GetAllAsync();
+
+            var response = new List<BlogImageDto>();
+            foreach(var blogImage in blogImages)
+            {
+                response.Add(new BlogImageDto
+                {
+                    Id = blogImage.Id,
+                    FileName = blogImage.FileName,
+                    Title = blogImage.Title,
+                    FileExtension = blogImage.FileExtension,
+                    UploadDate = blogImage.UploadDate,
+                    Url = blogImage.Url
+                });
+            }
+
+            return Ok(response);
+        }
+
         [HttpPost]
         public async Task<IActionResult> UploadImage(
             [FromForm] IFormFile file,
@@ -34,7 +56,7 @@ namespace CodeVoyage.Controllers
                     UploadDate = DateTime.Now
                 };
 
-                blogImage = await _imageRepository.Upload(file, blogImage);
+                blogImage = await _imageRepository.UploadAsync(file, blogImage);
 
                 var response = new BlogImageDto
                 {
