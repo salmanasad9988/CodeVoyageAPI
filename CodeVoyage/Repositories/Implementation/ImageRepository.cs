@@ -28,12 +28,12 @@ namespace CodeVoyage.Repositories.Implementation
 
         public async Task<BlogImage> UploadAsync(IFormFile file, BlogImage blogImage)
         {
-            var path = Path.Combine(_webHostEnvironment.ContentRootPath, "Uploads\\Images", $"{blogImage.FileName}");
+            var path = Path.Combine(_webHostEnvironment.ContentRootPath, "Uploads\\Images", $"{blogImage.FileName}{blogImage.FileExtension}");
 
             using var stream = new FileStream(path, FileMode.Create);
             await file.CopyToAsync(stream);
 
-            blogImage.Url = @$"{_httpContextAccessor.HttpContext.Request.Scheme}://{_httpContextAccessor.HttpContext.Request.Host}{_httpContextAccessor.HttpContext.Request.PathBase}/Uploads/Images/{blogImage.FileName}";
+            blogImage.Url = @$"{_httpContextAccessor.HttpContext.Request.Scheme}://{_httpContextAccessor.HttpContext.Request.Host}{_httpContextAccessor.HttpContext.Request.PathBase}/Uploads/Images/{blogImage.FileName}{blogImage.FileExtension}";
 
             await _context.BlogImages.AddAsync(blogImage);
             await _context.SaveChangesAsync();
