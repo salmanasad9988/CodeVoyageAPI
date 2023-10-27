@@ -1,4 +1,5 @@
-﻿using CodeVoyage.Models.Domain;
+﻿using Azure.Core;
+using CodeVoyage.Models.Domain;
 using CodeVoyage.Models.DTO.BlogPost;
 using CodeVoyage.Models.DTO.Category;
 using CodeVoyage.Repositories.Interface;
@@ -33,6 +34,7 @@ namespace CodeVoyage.Controllers
                 Author = request.Author,
                 PublishedDate = request.PublishedDate,
                 IsPublic = request.IsPublic,
+                UrlHandle = request.UrlHandle,
                 Categories = new List<Category>()
             };
 
@@ -56,6 +58,7 @@ namespace CodeVoyage.Controllers
                 Author = blogPost.Author,
                 PublishedDate = blogPost.PublishedDate,
                 IsPublic = blogPost.IsPublic,
+                UrlHandle = blogPost.UrlHandle,
                 Categories = blogPost.Categories.Select(x => new CategoryDto
                 {
                     Id = x.Id,
@@ -84,6 +87,7 @@ namespace CodeVoyage.Controllers
                     Author = blogPost.Author,
                     PublishedDate = blogPost.PublishedDate,
                     IsPublic = blogPost.IsPublic,
+                    UrlHandle = blogPost.UrlHandle,
                     Categories = blogPost.Categories.Select(x => new CategoryDto
                     {
                         Id = x.Id,
@@ -116,6 +120,7 @@ namespace CodeVoyage.Controllers
                 Author = blogPost.Author,
                 PublishedDate = blogPost.PublishedDate,
                 IsPublic = blogPost.IsPublic,
+                UrlHandle = blogPost.UrlHandle,
                 Categories = blogPost.Categories.Select(x => new CategoryDto
                 {
                     Id = x.Id,
@@ -140,6 +145,7 @@ namespace CodeVoyage.Controllers
                 Author = request.Author,
                 PublishedDate = request.PublishedDate,
                 IsPublic = request.IsPublic,
+                UrlHandle = request.UrlHandle,
                 Categories = new List<Category>()
             };
 
@@ -167,6 +173,7 @@ namespace CodeVoyage.Controllers
                 Author = blogPost.Author,
                 PublishedDate = blogPost.PublishedDate,
                 IsPublic = blogPost.IsPublic,
+                UrlHandle = blogPost.UrlHandle,
                 Categories = blogPost.Categories.Select(x => new CategoryDto
                 {
                     Id = x.Id,
@@ -194,7 +201,8 @@ namespace CodeVoyage.Controllers
                 ImageUrl = deletedBlogPost.ImageUrl,
                 Author = deletedBlogPost.Author,
                 PublishedDate = deletedBlogPost.PublishedDate,
-                IsPublic = deletedBlogPost.IsPublic
+                IsPublic = deletedBlogPost.IsPublic,
+                UrlHandle = deletedBlogPost.UrlHandle
             };
 
             return Ok(response);

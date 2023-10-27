@@ -1,4 +1,5 @@
-﻿using CodeVoyage.Models;
+﻿using Azure.Core;
+using CodeVoyage.Models;
 using CodeVoyage.Models.Domain;
 using CodeVoyage.Models.DTO.Category;
 using CodeVoyage.Repositories.Interface;
@@ -23,14 +24,16 @@ namespace CodeVoyage.Controllers
         {
             var category = new Category
             {
-                Name = request.Name
+                Name = request.Name,
+                UrlHandle = request.UrlHandle
             };
 
             await _categoryRepository.CreateAsync(category);
 
             var response = new CreateCategoryDto
             {
-                Name = request.Name
+                Name = request.Name,
+                UrlHandle = request.UrlHandle
             };
 
             return Ok(response);
@@ -47,7 +50,8 @@ namespace CodeVoyage.Controllers
                 response.Add(new CategoryDto
                 {
                     Id = category.Id,
-                    Name = category.Name
+                    Name = category.Name,
+                    UrlHandle = category.UrlHandle
                 });
             }
 
@@ -66,7 +70,8 @@ namespace CodeVoyage.Controllers
             var response = new CategoryDto
             {
                 Id = category.Id,
-                Name = category.Name
+                Name = category.Name,
+                UrlHandle = category.UrlHandle
             };
 
             return Ok(response);
@@ -79,7 +84,8 @@ namespace CodeVoyage.Controllers
             var category = new Category
             {
                 Id = id,
-                Name = request.Name
+                Name = request.Name,
+                UrlHandle = request.UrlHandle
             };
 
             category = await _categoryRepository.UpdateAsync(category);
@@ -89,7 +95,8 @@ namespace CodeVoyage.Controllers
 
             var response = new UpdateCategoryDto
             {
-                Name = category.Name
+                Name = category.Name,
+                UrlHandle = category.UrlHandle
             };
 
             return Ok(response);
@@ -107,7 +114,8 @@ namespace CodeVoyage.Controllers
             var response = new CategoryDto
             {
                 Id = category.Id,
-                Name = category.Name
+                Name = category.Name,
+                UrlHandle = category.UrlHandle
             };
 
             return Ok(response);

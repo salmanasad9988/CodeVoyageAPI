@@ -12,6 +12,7 @@ namespace CodeVoyage.Models.DTO.BlogPost
         public string Author { get; set; } = string.Empty;
         public DateTime PublishedDate { get; set; }
         public bool IsPublic { get; set; }
+        public string UrlHandle { get; set; } = string.Empty;
         public List<CategoryDto> Categories { get; set; }
     }
 }
