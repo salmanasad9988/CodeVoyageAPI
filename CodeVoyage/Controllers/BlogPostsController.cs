@@ -103,7 +103,39 @@ namespace CodeVoyage.Controllers
         [Route("{id:Guid}")]
         public async Task<IActionResult> GetBlogPostById([FromRoute] Guid id)
         {
-            var blogPost = await _blogPostRepository.GetIdAsync(id);
+            var blogPost = await _blogPostRepository.GetByIdAsync(id);
+
+            if (blogPost == null)
+            {
+                return NotFound();
+            }
+
+            var response = new BlogPostDto
+            {
+                Id = blogPost.Id,
+                Title = blogPost.Title,
+                Description = blogPost.Description,
+                Content = blogPost.Content,
+                ImageUrl = blogPost.ImageUrl,
+                Author = blogPost.Author,
+                PublishedDate = blogPost.PublishedDate,
+                IsPublic = blogPost.IsPublic,
+                UrlHandle = blogPost.UrlHandle,
+                Categories = blogPost.Categories.Select(x => new CategoryDto
+                {
+                    Id = x.Id,
+                    Name = x.Name
+                }).ToList()
+            };
+
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("{urlHandle:string}")]
+        public async Task<IActionResult> GetBlogPostByUrl([FromRoute] string urlHandle)
+        {
+            var blogPost = await _blogPostRepository.GetByUrlHandleAsync(urlHandle);
 
             if (blogPost == null)
             {

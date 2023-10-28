@@ -8,7 +8,9 @@ namespace CodeVoyage.Repositories.Interface
 
         Task<IEnumerable<BlogPost>> GetAllAsync();
 
-        Task<BlogPost?> GetIdAsync(Guid id);
+        Task<BlogPost?> GetByIdAsync(Guid id);
+
+        Task<BlogPost?> GetByUrlHandleAsync(string urlHandle);
 
         Task<BlogPost?> UpdateAsync(BlogPost blogPost);
 

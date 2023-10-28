@@ -25,9 +25,14 @@ namespace CodeVoyage.Repositories.Implementation
             return await _context.BlogPosts.Include(x => x.Categories).ToListAsync();
         }
 
-        public async Task<BlogPost?> GetIdAsync(Guid id)
+        public async Task<BlogPost?> GetByIdAsync(Guid id)
         {
             return await _context.BlogPosts.Include(x => x.Categories).Where(x => x.Id == id).FirstOrDefaultAsync();
+        }
+
+        public async Task<BlogPost?> GetByUrlHandleAsync(string urlHandle)
+        {
+            return await _context.BlogPosts.Include(x => x.Categories).Where(x => x.UrlHandle == urlHandle).FirstOrDefaultAsync();
         }
 
         public async Task<BlogPost?> UpdateAsync(BlogPost blogPost)
@@ -65,5 +70,6 @@ namespace CodeVoyage.Repositories.Implementation
             return null;
         }
 
+        
     }
 }
