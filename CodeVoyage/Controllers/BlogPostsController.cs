@@ -132,7 +132,7 @@ namespace CodeVoyage.Controllers
         }
 
         [HttpGet]
-        [Route("{urlHandle:string}")]
+        [Route("{urlHandle}")]
         public async Task<IActionResult> GetBlogPostByUrl([FromRoute] string urlHandle)
         {
             var blogPost = await _blogPostRepository.GetByUrlHandleAsync(urlHandle);
