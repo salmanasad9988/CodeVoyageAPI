@@ -3,6 +3,7 @@ using CodeVoyage.Models;
 using CodeVoyage.Models.Domain;
 using CodeVoyage.Models.DTO.Category;
 using CodeVoyage.Repositories.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CodeVoyage.Controllers
